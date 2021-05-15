@@ -4,6 +4,7 @@ static int	ft_get_count(const char *s, const char c)
 {
 	int		count;
 
+	count = 0;
 	while (*s != 0)
 	{
 		if (*s != c)

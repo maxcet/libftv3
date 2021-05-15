@@ -1,35 +1,11 @@
 #include "libft.h"
 
-static int	ft_getstart(const char *s1, const char *set)
+static int	ft_get_it(char c, const char *set)
 {
-	size_t	len;
-	size_t	index;
-
-	len = ft_strlen(s1);
-	index = 0;
-	while (index < len)
-	{
-		if (ft_strchr(set, s1[index]) == 0)
-			break ;
-		index++;
-	}
-	return (index);
-}
-
-static int	ft_getend(const char *s1, const char *set)
-{
-	size_t	len;
-	size_t	index;
-
-	len = ft_strlen(s1);
-	index = 0;
-	while (index < len)
-	{
-		if (ft_strchr(set, s1[len - index - 1]) == 0)
-			break ;
-		index++;
-	}
-	return (len - index);
+	while(*set)
+		if (c == *set++)
+			return (0);
+	return (1);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -38,19 +14,23 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t		start;
 	size_t		finish;
 
-	newstr = NULL;
-	if (s1 != NULL && set == NULL)
-		newstr = ft_strdup(s1);
-	else if (s1 != NULL)
+	if (s1 == NULL)
+		return (NULL);
+	if (set == NULL)
+		return (ft_strdup(""));
+	start = 0;
+	finish = ft_strlen(s1);
+	while (ft_get_it(s1[start], set) == 0)
+		start++;
+	if (start == finish)
 	{
-		start = ft_getstart(s1, set);
-		finish = ft_getend(s1, set);
-		if (start >= finish)
-			return (ft_strdup(""));
-		newstr = (char *)malloc(sizeof(char) * (finish - start + 1) + 1);
-		if (newstr == NULL)
+		if (!(newstr = ft_strdup("")))
 			return (NULL);
-		ft_strlcpy(newstr, s1 + start, finish - start + 1);
+		else
+			return (newstr);
 	}
+	while (ft_get_it(s1[finish - 1], set) == 0)
+		finish--;
+	newstr = ft_substr(s1, start, finish - start);
 	return (newstr);
 }

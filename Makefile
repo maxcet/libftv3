@@ -69,8 +69,6 @@ $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) $(INCLUDES) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
 
-
-
 clean:
 	@rm -rf $(OBJECTS_DIRECTORY)
 	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"

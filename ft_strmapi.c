@@ -16,6 +16,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*str;
 	size_t	index;
 
+	if (s == NULL)
+		return (NULL);
 	str = ft_strmem(ft_strlen(s));
 	if (s != NULL && f && str != NULL)
 	{

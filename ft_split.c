@@ -1,86 +1,88 @@
-#include "libft.h"
+    #include "libft.h"
 
-static size_t	ft_getcount(const char *s, char c)
-{
-	size_t	count;
-	size_t	i;
+    static char	**ft_malloc_error(char **tab)
+    {
+    	unsigned int	i;
 
-	count = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != c && s[i] != '\0')
-		{
-			i++;
-			count++;
-			while (s[i] != c && s[i] != '\0')
-				i++;
-		}
-	}
-	return (count);
-}
+    	i = 0;
+    	while (tab[i])
+    	{
+    		free(tab[i]);
+    		i++;
+    	}
+    	free(tab);
+    	return (NULL);
+    }
 
-static char	*ft_strmem(size_t size)
-{
-	void	*mem;
+    static unsigned int	ft_get_count(char const *s, char c)
+    {
+    	unsigned int	i;
+    	unsigned int	nb_strs;
 
-	mem = (char *)malloc(sizeof(char) * (size + 1));
-	if (mem == NULL)
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
+    	if (!s[0])
+    		return (0);
+    	i = 0;
+    	nb_strs = 0;
+    	while (s[i] && s[i] == c)
+    		i++;
+    	while (s[i])
+    	{
+    		if (s[i] == c)
+    		{
+    			nb_strs++;
+    			while (s[i] && s[i] == c)
+    				i++;
+    			continue ;
+    		}
+    		i++;
+    	}
+    	if (s[i - 1] != c)
+    		nb_strs++;
+    	return (nb_strs);
+    }
 
-static char	*ft_getarray(size_t *i, const char *s, char c)
-{
-	size_t	size;
-	size_t	j;
-	char	*str;
+    static void	ft_get_newstr(char **new_str, unsigned int *new_str_len, char c)
+    {
+    	unsigned int i;
 
-	size = *i;
-	j = 0;
-	while (s[size] != '\0' && s[size] != c)
-		size++;
-	str = ft_strmem(size - (*i));
-	if (str != NULL)
-	{
-		while (*i < size)
-		{
-			str[j] = s[*i];
-			j++;
-			(*i)++;
-		}
-		return (str);
-	}
-	return (NULL);
-}
+    	*new_str += *new_str_len;
+    	*new_str_len = 0;
+    	i = 0;
+    	while (**new_str && **new_str == c)
+    		(*new_str)++;
+    	while ((*new_str)[i])
+    	{
+    		if ((*new_str)[i] == c)
+    			return ;
+    		(*new_str_len)++;
+    		i++;
+    	}
+    }
 
-char	**ft_split(char const *s, char c)
-{
-	char	**array;
-	size_t	count;
-	size_t	i;
-	size_t	j;
+    char	**ft_split(char const *s, char c)
+    {
+    	char			**array;
+    	char			*newstr;
+    	unsigned int	newstrlen;
+    	unsigned int	count_str;
+    	unsigned int	i;
 
-	array = NULL;
-	i = 0;
-	j = 0;
-	count = ft_getcount(s, c);
-	if (s != NULL)
-		array = (char **)malloc(sizeof(char *) * (count + 1));
-	if (array != NULL)
-	{
-		while (j < count)
-		{
-			while (s[i] == c)
-				i++;
-			if (s[i] != c && s[i] != '\0')
-				array[j++] = ft_getarray(&i, s, c);
-		}
-		array[j] = '\0';
-		return (array);
-	}
-	return (NULL);
-}
+    	if (!s)
+    		return (NULL);
+    	count_str = ft_get_count(s, c);
+    	if (!(array = (char **)malloc(sizeof(char *) * (count_str + 1))))
+    		return (NULL);
+    	i = 0;
+    	newstr = (char *)s;
+    	newstrlen = 0;
+    	while (i < count_str)
+    	{
+    		ft_get_newstr(&newstr, &newstrlen, c);
+    		if (!(array[i] = (char *)malloc(sizeof(char) * (newstrlen + 1))))
+    			return (ft_malloc_error(array));
+    		ft_strlcpy(array[i], newstr, newstrlen + 1);
+    		i++;
+    	}
+    	array[i] = NULL;
+    	return (array);
+    }

@@ -7,10 +7,11 @@ char	*ft_strrchr(const char *s, int c)
 
 	str = (char *)s + ft_strlen(s);
 	symbol = (char)c;
-	while (str >= s && (*str != symbol))
+	while (str >= s)
+	{
+		if (*str == symbol)
+			return (str);
 		str--;
-	if (*str == symbol)
-		return (str);
-	else
-		return (NULL);
+	}
+	return (NULL);
 }

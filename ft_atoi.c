@@ -11,8 +11,8 @@ static int	ft_check(char c)
 int	ft_atoi(const char *str)
 {
 	unsigned int		result;
-	int		minus;
-	char	*temp;
+	int					minus;
+	char				*temp;
 
 	result = 0;
 	minus = 1;

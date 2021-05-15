@@ -8,7 +8,7 @@ static char	*ft_strmem(size_t size)
 	if (mem == NULL)
 		return (NULL);
 	ft_bzero(mem, size);
-		return (mem);
+	return (mem);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

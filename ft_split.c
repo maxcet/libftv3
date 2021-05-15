@@ -11,14 +11,14 @@ static size_t	ft_getcount(const char *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		if (s[i] != c)
+		if (s[i] != c && s[i] != '\0')
 		{
 			i++;
 			count++;
-			while (s[i] != c)
+			while (s[i] != c && s[i] != '\0')
 				i++;
 		}
-	}	
+	}
 	return (count);
 }
 
@@ -30,7 +30,7 @@ static char	*ft_strmem(size_t size)
 	if (mem == NULL)
 		return (NULL);
 	ft_bzero(mem, size);
-		return (mem);
+	return (mem);
 }
 
 static char	*ft_getarray(size_t *i, const char *s, char c)
@@ -69,17 +69,17 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	count = ft_getcount(s, c);
 	if (s != NULL)
-	array = (char **)malloc(sizeof(char *) * (count + 1));
+		array = (char **)malloc(sizeof(char *) * (count + 1));
 	if (array != NULL)
 	{
 		while (j < count)
 		{
 			while (s[i] == c)
 				i++;
-			if (s[i] != c)
+			if (s[i] != c && s[i] != '\0')
 				array[j++] = ft_getarray(&i, s, c);
 		}
-		array[j] == '\0';
+		array[j] = '\0';
 		return (array);
 	}
 	return (NULL);

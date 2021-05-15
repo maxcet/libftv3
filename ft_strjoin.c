@@ -8,12 +8,12 @@ static char	*ft_strmem(size_t size)
 	if (mem == NULL)
 		return (NULL);
 	ft_bzero(mem, size);
-		return (mem);
+	return (mem);
 }
 
-static char	*ft_strcpy(char *dest, char *src)
+static char	*ft_strcpy(char *dest, const char *src)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (src[i] != 0)
@@ -25,10 +25,10 @@ static char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-static char	*ft_strcat(char *dest, char *src)
+static char	*ft_strcat(char *dest, const char *src)
 {
-	int index;
-	int index2;
+	int		index;
+	int		index2;
 
 	index = 0;
 	index2 = 0;

@@ -8,5 +8,5 @@ void	*ft_calloc(size_t number, size_t size)
 	if (mem == NULL)
 		return (NULL);
 	ft_bzero(mem, number * size);
-		return (mem);
+	return (mem);
 }

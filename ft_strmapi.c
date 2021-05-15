@@ -8,7 +8,7 @@ static char	*ft_strmem(size_t size)
 	if (mem == NULL)
 		return (NULL);
 	ft_bzero(mem, size);
-		return (mem);
+	return (mem);
 }
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
@@ -22,7 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		index = 0;
 		while (s[index] != '\0')
 		{
-			str[index] = f(i , s[i]);
+			str[index] = f(index, s[index]);
 			index++;
 		}
 		str[index] = '\0';

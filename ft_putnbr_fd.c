@@ -2,7 +2,7 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char m;
+	char	m;
 
 	m = '-';
 	if (n == -2147483648)

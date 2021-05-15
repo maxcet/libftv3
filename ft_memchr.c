@@ -6,7 +6,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	unsigned char	symbol;
 
 	str = (unsigned char *)s;
-	symbol = (unsigned char *)c;
+	symbol = (unsigned char)c;
 	while (n--)
 	{
 		if (*str == symbol)

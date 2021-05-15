@@ -16,7 +16,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 		*(str + i) = *(source + i);
 		if (source[i] == symbol)
 			return (str + i + 1);
-		i++; 
+		i++;
 	}
 	return (NULL);
 }

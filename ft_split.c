@@ -59,14 +59,14 @@ static void	ft_get_newstr(char **new_str, unsigned int *new_str_len, char c)
 	}
 }
 
-static char	*ft_malloc(size_t size)
+static char	**ft_malloc(size_t size)
 {
-	char	*dst;
+	char	**dest;
 
-	dst = ((char *)malloc(sizeof(char) * (size + 1)));
-	if (dst == NULL)
-		return (ft_malloc_error(dst));
-	return (dst);
+	dest = (char **)malloc(sizeof(char *) * size);
+	if (!dest)
+		return (NULL);
+	return (dest);
 }
 
 char	**ft_split(char const *s, char c)
@@ -80,16 +80,16 @@ char	**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	count_str = ft_get_count(s, c);
-	array = (char **)malloc(sizeof(char *) * (count_str + 1));
-	if (array == NULL)
-		return (NULL);
+	array = ft_malloc(count_str + 1);
 	i = 0;
 	newstr = (char *)s;
 	newstrlen = 0;
 	while (i < count_str)
 	{
 		ft_get_newstr(&newstr, &newstrlen, c);
-		array[i] = ft_malloc(newstrlen);
+		array[i] = (char *)malloc(sizeof(char) * (newstrlen + 1));
+		if (array[i] == NULL)
+			return (ft_malloc_error(array));
 		ft_strlcpy(array[i], newstr, newstrlen + 1);
 		i++;
 	}

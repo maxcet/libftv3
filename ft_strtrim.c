@@ -2,7 +2,7 @@
 
 static int	ft_get_it(char c, const char *set)
 {
-	while(*set)
+	while (*set)
 		if (c == *set++)
 			return (0);
 	return (1);
@@ -24,7 +24,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 		start++;
 	if (start == finish)
 	{
-		if (!(newstr = ft_strdup("")))
+		newstr = ft_strdup("");
+		if (newstr == NULL)
 			return (NULL);
 		else
 			return (newstr);

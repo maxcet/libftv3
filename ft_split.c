@@ -93,6 +93,6 @@ char	**ft_split(char const *s, char c)
 		ft_strlcpy(array[i], newstr, newstrlen + 1);
 		i++;
 	}
-	array[i] = '\0';
+	array[i] = NULL;
 	return (array);
 }
